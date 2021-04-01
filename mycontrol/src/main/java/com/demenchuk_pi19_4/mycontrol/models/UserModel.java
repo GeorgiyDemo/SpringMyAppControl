@@ -7,6 +7,9 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 
+/**
+ * The type User model.
+ */
 @Entity
 @Data
 @NoArgsConstructor
@@ -17,10 +20,10 @@ public class UserModel extends MySuperModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String login;
     private String firstName;
     private String middleName;
     private String lastName;
-    private String login;
     private LocalDate birthday;
 
     @OneToMany(mappedBy = "user")

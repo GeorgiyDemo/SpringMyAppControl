@@ -5,29 +5,48 @@ import com.demenchuk_pi19_4.mycontrol.repos.TaskRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * The type Task service.
+ */
 @Service
 public class TaskService {
 
     private final TaskRepo taskRepo;
 
+    /**
+     * Instantiates a new Task service.
+     *
+     * @param taskRepo the task repo
+     */
     @Autowired
-    public TaskService(TaskRepo taskRepo){
+    public TaskService(TaskRepo taskRepo) {
         this.taskRepo = taskRepo;
     }
 
-    public void create(TaskModel task){
+    /**
+     * Create.
+     *
+     * @param task the task
+     */
+    public void create(TaskModel task) {
         taskRepo.save(task);
     }
 
-    public TaskModel update(TaskModel oldTask, TaskModel newTask){
-        oldTask.setTitle(newTask.getDescription());
+    /**
+     * Update task model.
+     *
+     * @param oldTask the old task
+     * @param newTask the new task
+     * @return the task model
+     */
+    public TaskModel update(TaskModel oldTask, TaskModel newTask) {
+        oldTask.setTitleName(newTask.getTitleName());
         oldTask.setDescription(newTask.getDescription());
         oldTask.setCompletedDateTime(newTask.getCompletedDateTime());
-        oldTask.setIsReady(newTask.getIsReady());
+        oldTask.setIsTaskReady(newTask.getIsTaskReady());
         oldTask.setCategories(newTask.getCategories());
         oldTask.setUser(newTask.getUser());
         oldTask.setChangedDateTime(newTask.getCreatedDateTime());
@@ -35,15 +54,31 @@ public class TaskService {
         return oldTask;
     }
 
-    public void delete(TaskModel task){
+    /**
+     * Delete.
+     *
+     * @param task the task
+     */
+    public void delete(TaskModel task) {
         taskRepo.delete(task);
     }
 
-    public List<TaskModel> findAll(){
+    /**
+     * Find all list.
+     *
+     * @return the list
+     */
+    public List<TaskModel> findAll() {
         return taskRepo.findAll();
     }
 
-    public Optional<TaskModel> find(Long id){
+    /**
+     * Find optional.
+     *
+     * @param id the id
+     * @return the optional
+     */
+    public Optional<TaskModel> find(Long id) {
         return taskRepo.findById(id);
     }
 
